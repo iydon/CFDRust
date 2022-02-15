@@ -12,12 +12,12 @@ fn main() {
     let dx = 2. / (nx as f64 - 1.);
     let dy = 2. / (ny as f64 - 1.);
     let dt = sigma * dx;
-    let mut u = Array::ones((nx, ny));
-    let mut v = Array::ones((nx, ny));
+    let mut u = Array::ones((ny, nx));
+    let mut v = Array::ones((ny, nx));
     let begin = (0.5 / dx) as usize;
     let end = (1. / dx + 1.) as usize;
-    u.slice_mut(s![begin..end, begin..end]).fill(2.);
-    v.slice_mut(s![begin..end, begin..end]).fill(2.);
+    u.slice_mut(s![begin..end, begin..end]).fill(2.);  // nx == ny
+    v.slice_mut(s![begin..end, begin..end]).fill(2.);  // nx == ny
 
     for _ in 0..nt + 1 {
         let un = u.clone();
