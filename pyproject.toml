@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "CFDRust"
+version = "0.1.0"
+description = "A repository for practicing Rust, inspired by barbagroup/CFDPython."
+authors = ["Iydon Liang <liangiydon@gmail.com>"]
+license = "GNU General Public License v3.0"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+numpy = "^1.22.2"
+
+[tool.poetry.dev-dependencies]
+
+[[tool.poetry.source]]
+name = "aliyun"
+url = "https://mirrors.aliyun.com/pypi/simple"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
