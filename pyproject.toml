@@ -8,6 +8,7 @@ license = "GNU General Public License v3.0"
 [tool.poetry.dependencies]
 python = "^3.8"
 numpy = "^1.22.2"
+maturin = "^0.12.9"
 
 [tool.poetry.dev-dependencies]
 
