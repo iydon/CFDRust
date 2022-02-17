@@ -22,10 +22,12 @@ pub fn solve(u: &mut Array1<f64>, nt: usize, dx: f64, dt: f64, nu: f64) {
     let nx = u.shape()[0];
     for _ in 0..nt {
         let un = u.clone();
+
         for ith in 1..nx - 1 {
             u[ith] = un[ith] - un[ith] * dt / dx * (un[ith] - un[ith - 1])
                 + nu * dt / dx.powi(2) * (un[ith + 1] - 2. * un[ith] + un[ith - 1]);
         }
+
         u[0] = un[0] - un[0] * dt / dx * (un[0] - un[nx - 2])
             + nu * dt / dx.powi(2) * (un[1] - 2. * un[0] + un[nx - 2]);
         u[nx - 1] = u[0];
