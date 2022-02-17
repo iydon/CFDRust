@@ -4,7 +4,7 @@ POETRY = poetry
 PYTHON = $(POETRY) run python
 MATURIN = $(POETRY) run maturin
 
-.PHONY: help install develop release shell
+.PHONY: help init install develop release shell test
 
 help:     ## Print help information
 	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
@@ -23,3 +23,6 @@ release:  ## Build optimized artifacts
 
 shell:    ## Spawn a shell within the virtual environment
 	$(POETRY) shell
+
+test:     ## Run the tests with cargo
+	$(CARGO) test
