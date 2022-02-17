@@ -1,11 +1,12 @@
 [package]
-name = "CFDRust"
-version = "0.1.0"
+name = "cfd_rust"
+version = "0.2.0"
 edition = "2021"
 
 [lib]
 name = "cfd_rust"
-crate-type = ["cdylib"]
+# https://github.com/rust-lang/cargo/issues/6659
+crate-type = ["lib", "cdylib"]
 
 [dependencies]
 pyo3 = { version = "0.15.1", features = ["extension-module"] }
