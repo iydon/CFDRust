@@ -1,6 +1,6 @@
 use ndarray::prelude::*;
 
-use crate::macros::{fill, i};
+use crate::macros::fill;
 
 pub fn default() -> (Array1<f64>, usize, f64, f64, f64) {
     let nx = 41;

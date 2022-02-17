@@ -6,13 +6,10 @@ pub fn default() -> (Array2<f64>, Array1<f64>, f64, f64, f64) {
     let nx = 31;
     let ny = 31;
 
-    let nu = 0.05;
-    let sigma = 0.25;
     let eps = 1e-4;
 
     let dx = 2. / (nx as f64 - 1.);
     let dy = 2. / (ny as f64 - 1.);
-    let dt = sigma * dx * dy / nu;
 
     let y = Array::linspace(0., 1., nx);
     let mut p = Array::zeros((ny, nx));

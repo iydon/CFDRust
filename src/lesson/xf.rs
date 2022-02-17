@@ -28,9 +28,9 @@ pub fn default() -> (
     let dx = 2. / (nx as f64 - 1.);
     let dy = 2. / (ny as f64 - 1.);
 
-    let mut u = Array::zeros((ny, nx));
-    let mut v = Array::zeros((ny, nx));
-    let mut p = Array::ones((ny, nx));
+    let u = Array::zeros((ny, nx));
+    let v = Array::zeros((ny, nx));
+    let p = Array::ones((ny, nx));
 
     return (u, v, p, nit, dx, dy, dt, rho, nu, f, eps);
 }
@@ -50,7 +50,7 @@ pub fn solve(
 ) {
     let mut udiff = 1.;
     let mut stepcount = 0;
-    while udiff > 0.001 {
+    while udiff > eps {
         let un = u.clone();
         let vn = v.clone();
         let b = make_b(&u, &v, dx, dy, dt, rho);

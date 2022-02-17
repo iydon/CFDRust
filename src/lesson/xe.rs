@@ -26,9 +26,9 @@ pub fn default() -> (
     let dx = 2. / (nx as f64 - 1.);
     let dy = 2. / (ny as f64 - 1.);
 
-    let mut u = Array::zeros((ny, nx));
-    let mut v = Array::zeros((ny, nx));
-    let mut p = Array::zeros((ny, nx));
+    let u = Array::zeros((ny, nx));
+    let v = Array::zeros((ny, nx));
+    let p = Array::zeros((ny, nx));
 
     return (u, v, p, nt, nit, dx, dy, dt, rho, nu);
 }

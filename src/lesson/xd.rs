@@ -10,7 +10,7 @@ pub fn default() -> (Array2<f64>, Array2<f64>, usize, f64, f64) {
     let dx = 2. / (nx as f64 - 1.);
     let dy = 1. / (ny as f64 - 1.);
 
-    let mut p = Array::zeros((ny, nx));
+    let p = Array::zeros((ny, nx));
     let mut b = Array::zeros((ny, nx));
     b[[ny / 4, nx / 4]] = 100.;
     b[[3 * ny / 4, 3 * nx / 4]] = -100.;
