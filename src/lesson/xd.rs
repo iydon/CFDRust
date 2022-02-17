@@ -18,7 +18,7 @@ pub fn default() -> (Array2<f64>, Array2<f64>, usize, f64, f64) {
     return (p, b, nt, dx, dy);
 }
 
-pub fn solve(p: &mut Array2<f64>, b: &Array2<f64>, nt: usize, dx: f64, dy: f64) {
+pub fn solve(p: &mut Array2<f64>, b: Array2<f64>, nt: usize, dx: f64, dy: f64) {
     for _ in 0..nt + 1 {
         let pn = p.clone();
 

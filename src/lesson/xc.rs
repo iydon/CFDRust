@@ -21,7 +21,7 @@ pub fn default() -> (Array2<f64>, Array1<f64>, f64, f64, f64) {
     return (p, y, dx, dy, eps);
 }
 
-pub fn solve(p: &mut Array2<f64>, y: &Array1<f64>, dx: f64, dy: f64, eps: f64) {
+pub fn solve(p: &mut Array2<f64>, y: Array1<f64>, dx: f64, dy: f64, eps: f64) {
     let mut norm = 1.;
     while norm > eps {
         let pn = p.clone();
