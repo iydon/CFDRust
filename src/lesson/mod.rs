@@ -8,3 +8,6 @@ pub mod x8;  // https://github.com/barbagroup/CFDPython/blob/master/lessons/08_S
 pub mod x9;  // https://github.com/barbagroup/CFDPython/blob/master/lessons/09_Step_7.ipynb
 pub mod xa;  // https://github.com/barbagroup/CFDPython/blob/master/lessons/10_Step_8.ipynb
 pub mod xc;  // https://github.com/barbagroup/CFDPython/blob/master/lessons/12_Step_9.ipynb
+pub mod xd;  // https://github.com/barbagroup/CFDPython/blob/master/lessons/13_Step_10.ipynb
+pub mod xe;  // https://github.com/barbagroup/CFDPython/blob/master/lessons/14_Step_11.ipynb
+pub mod xf;  // https://github.com/barbagroup/CFDPython/blob/master/lessons/15_Step_12.ipynb
