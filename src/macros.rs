@@ -16,4 +16,4 @@ macro_rules! fill {
     }
 }
 
-pub(crate) use {i, assign, fill};
+pub(crate) use {assign, fill, i};
