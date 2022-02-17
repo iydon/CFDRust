@@ -6,6 +6,7 @@ version = 3
 name = "CFDRust"
 version = "0.1.0"
 dependencies = [
+ "ndarray",
  "numpy",
  "pyo3",
 ]
