@@ -9,6 +9,9 @@ MATURIN = $(POETRY) run maturin
 help:     ## Print help information
 	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
 
+init:     ## Initialize the configuration files
+	cp config/* .
+
 install:  ## Install Python-side dependencies
 	$(POETRY) install
 
