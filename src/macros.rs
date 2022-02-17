@@ -1,7 +1,19 @@
 macro_rules! i {
-    ($v:ident[$($x:expr),*]) => {
-        &$v.slice(s![$($x),*])
+    ($a:ident[$($x:expr),*]) => {
+        &$a.slice(s![$($x),*])
     };
 }
 
-pub(crate) use i;
+macro_rules! assign {
+    ($a:ident[$($x:expr),*] = $rhs:expr) => {
+        $a.slice_mut(s![$($x),*]).assign(&$rhs)
+    }
+}
+
+macro_rules! fill {
+    ($a:ident[$($x:expr),*] = $v:expr) => {
+        $a.slice_mut(s![$($x),*]).fill($v)
+    }
+}
+
+pub(crate) use {i, assign, fill};
