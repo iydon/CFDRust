@@ -1,13 +1,13 @@
-pub mod x1; // https://github.com/barbagroup/CFDPython/blob/master/lessons/01_Step_1.ipynb
-pub mod x2; // https://github.com/barbagroup/CFDPython/blob/master/lessons/02_Step_2.ipynb
-pub mod x3; // https://github.com/barbagroup/CFDPython/blob/master/lessons/03_CFL_Condition.ipynb
-pub mod x4; // https://github.com/barbagroup/CFDPython/blob/master/lessons/04_Step_3.ipynb
-pub mod x5; // https://github.com/barbagroup/CFDPython/blob/master/lessons/05_Step_4.ipynb
-pub mod x7; // https://github.com/barbagroup/CFDPython/blob/master/lessons/07_Step_5.ipynb
-pub mod x8; // https://github.com/barbagroup/CFDPython/blob/master/lessons/08_Step_6.ipynb
-pub mod x9; // https://github.com/barbagroup/CFDPython/blob/master/lessons/09_Step_7.ipynb
-pub mod xa; // https://github.com/barbagroup/CFDPython/blob/master/lessons/10_Step_8.ipynb
-pub mod xc; // https://github.com/barbagroup/CFDPython/blob/master/lessons/12_Step_9.ipynb
-pub mod xd; // https://github.com/barbagroup/CFDPython/blob/master/lessons/13_Step_10.ipynb
-pub mod xe; // https://github.com/barbagroup/CFDPython/blob/master/lessons/14_Step_11.ipynb
-pub mod xf; // https://github.com/barbagroup/CFDPython/blob/master/lessons/15_Step_12.ipynb
+pub mod x1;
+pub mod x2;
+pub mod x3;
+pub mod x4;
+pub mod x5;
+pub mod x7;
+pub mod x8;
+pub mod x9;
+pub mod xa;
+pub mod xc;
+pub mod xd;
+pub mod xe;
+pub mod xf;

@@ -1,3 +1,4 @@
+// https://github.com/barbagroup/CFDPython/blob/master/lessons/03_CFL_Condition.ipynb
 use ndarray::prelude::*;
 
 use crate::macros::fill;
