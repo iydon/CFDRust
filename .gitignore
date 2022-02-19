@@ -6,3 +6,6 @@ Cargo.lock
 Cargo.toml
 poetry.lock
 pyproject.toml
+
+# MAE5005
+mae5005/*.out
