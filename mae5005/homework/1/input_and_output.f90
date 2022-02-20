@@ -24,6 +24,12 @@ program main
    write(*, fmt='(A, ES14.8, A, b32.32)') 'Output = ', number, ' = ', transfer(number, 0)
 end program main
 
+! #[compile]
+! {
+!     "fortran": "gfortran",
+!     "options": []
+! }
+
 ! #[test]
 ! [
 !     {

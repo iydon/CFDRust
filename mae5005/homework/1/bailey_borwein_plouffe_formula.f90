@@ -96,6 +96,12 @@ subroutine calc_pi_f128(eps, n, pi)
    end do
 end subroutine calc_pi_f128
 
+! #[compile]
+! {
+!     "fortran": "gfortran",
+!     "options": []
+! }
+
 ! #[test]
 ! [
 !     {
