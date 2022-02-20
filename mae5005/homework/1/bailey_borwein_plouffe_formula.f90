@@ -43,7 +43,7 @@ subroutine calc_pi_f32(eps, n, pi)
    use, intrinsic :: iso_fortran_env, only: f32=>real32
 
    real(f32), intent(in) :: eps
-   integer, intent(out)  :: n
+   integer, intent(out) :: n
    real(f32), intent(out) :: pi
 
    real(f32) :: delta, a, b
@@ -62,7 +62,7 @@ subroutine calc_pi_f64(eps, n, pi)
    use, intrinsic :: iso_fortran_env, only: f64=>real64
 
    real(f64), intent(in) :: eps
-   integer, intent(out)  :: n
+   integer, intent(out) :: n
    real(f64), intent(out) :: pi
 
    real(f64) :: delta, a, b
@@ -81,7 +81,7 @@ subroutine calc_pi_f128(eps, n, pi)
    use, intrinsic :: iso_fortran_env, only: f128=>real128
 
    real(f128), intent(in) :: eps
-   integer, intent(out)  :: n
+   integer, intent(out) :: n
    real(f128), intent(out) :: pi
 
    real(f128) :: delta, a, b
