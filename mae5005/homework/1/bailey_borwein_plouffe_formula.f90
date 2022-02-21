@@ -51,7 +51,7 @@ subroutine calc_pi_f32(eps, n, pi)
    n = 1 ; pi = 0.0 ; a = 1.0 ; b = 0.0
    do while (.true.)
       delta = (4.0/(b+1.0) - 2.0/(b+4.0) - 1.0/(b+5.0) - 1.0/(b+6.0)) / a
-      if (abs(delta) < eps) then
+      if (abs(delta) <= eps) then
          exit
       end if
       n = n + 1 ; pi = pi + delta ; a = a * 16.0 ; b = b + 8.0
@@ -70,7 +70,7 @@ subroutine calc_pi_f64(eps, n, pi)
    n = 1 ; pi = 0.0 ; a = 1.0 ; b = 0.0
    do while (.true.)
       delta = (4.0/(b+1.0) - 2.0/(b+4.0) - 1.0/(b+5.0) - 1.0/(b+6.0)) / a
-      if (abs(delta) < eps) then
+      if (abs(delta) <= eps) then
          exit
       end if
       n = n + 1 ; pi = pi + delta ; a = a * 16.0 ; b = b + 8.0
@@ -89,7 +89,7 @@ subroutine calc_pi_f128(eps, n, pi)
    n = 1 ; pi = 0.0 ; a = 1.0 ; b = 0.0
    do while (.true.)
       delta = (4.0/(b+1.0) - 2.0/(b+4.0) - 1.0/(b+5.0) - 1.0/(b+6.0)) / a
-      if (abs(delta) < eps) then
+      if (abs(delta) <= eps) then
          exit
       end if
       n = n + 1 ; pi = pi + delta ; a = a * 16.0 ; b = b + 8.0
