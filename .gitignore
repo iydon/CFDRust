@@ -9,3 +9,17 @@ pyproject.toml
 
 # MAE5005
 mae5005/*.out
+
+# MAE5005 homework documentation
+mae5005/docs/main.aux
+mae5005/docs/main.bbl
+mae5005/docs/main.bcf
+mae5005/docs/main.blg
+mae5005/docs/main.fdb_latexmk
+mae5005/docs/main.fls
+mae5005/docs/main.listing
+mae5005/docs/main.log
+mae5005/docs/main.out
+mae5005/docs/main.pdf
+mae5005/docs/main.run.xml
+mae5005/docs/main.xdv
