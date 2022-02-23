@@ -8,6 +8,7 @@ poetry.lock
 pyproject.toml
 
 # MAE5005
+mae5005/other
 mae5005/*.out
 
 # MAE5005 homework documentation
@@ -23,4 +24,5 @@ mae5005/docs/main.log
 mae5005/docs/main.out
 mae5005/docs/main.pdf
 mae5005/docs/main.run.xml
+mae5005/docs/main.toc
 mae5005/docs/main.xdv
