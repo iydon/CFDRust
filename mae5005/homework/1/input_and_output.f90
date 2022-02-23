@@ -19,7 +19,7 @@ program main
 
    real(sp) :: number
 
-   write(*, fmt='(A)', advance='no') 'Input = '
+   write(*, fmt='(A)', advance='no') 'Input  = '
    read(*, *) number
    write(*, fmt='(A, ES14.8, A, b32.32)') 'Output = ', number, ' = ', transfer(number, 0)
 end program main
@@ -34,34 +34,34 @@ end program main
 ! [
 !     {
 !         "stdin": "0.61E-45",
-!         "stdout": "Input = Output = 0.00000000E+00 = 00000000000000000000000000000000\n"
+!         "stdout": "Input  = Output = 0.00000000E+00 = 00000000000000000000000000000000\n"
 !     },
 !     {
 !         "stdin": "0.82E-45",
-!         "stdout": "Input = Output = 1.40129846E-45 = 00000000000000000000000000000001\n"
+!         "stdout": "Input  = Output = 1.40129846E-45 = 00000000000000000000000000000001\n"
 !     },
 !     {
 !         "stdin": "2.13E-45",
-!         "stdout": "Input = Output = 2.80259693E-45 = 00000000000000000000000000000010\n"
+!         "stdout": "Input  = Output = 2.80259693E-45 = 00000000000000000000000000000010\n"
 !     },
 !     {
 !         "stdin": "2.34E-45",
-!         "stdout": "Input = Output = 2.80259693E-45 = 00000000000000000000000000000010\n"
+!         "stdout": "Input  = Output = 2.80259693E-45 = 00000000000000000000000000000010\n"
 !     },
 !     {
 !         "stdin": "3.65E-10",
-!         "stdout": "Input = Output = 3.65000002E-10 = 00101111110010001010100100101111\n"
+!         "stdout": "Input  = Output = 3.65000002E-10 = 00101111110010001010100100101111\n"
 !     },
 !     {
 !         "stdin": "4.06E+30",
-!         "stdout": "Input = Output = 4.05999996E+30 = 01110010010011001111101001000101\n"
+!         "stdout": "Input  = Output = 4.05999996E+30 = 01110010010011001111101001000101\n"
 !     },
 !     {
 !         "stdin": "3.40E+38",
-!         "stdout": "Input = Output = 3.39999995E+38 = 01111111011111111100100110011110\n"
+!         "stdout": "Input  = Output = 3.39999995E+38 = 01111111011111111100100110011110\n"
 !     },
 !     {
 !         "stdin": "3.41E+38",
-!         "stdout": "Input = Output =       Infinity = 01111111100000000000000000000000\n"
+!         "stdout": "Input  = Output =       Infinity = 01111111100000000000000000000000\n"
 !     }
 ! ]
