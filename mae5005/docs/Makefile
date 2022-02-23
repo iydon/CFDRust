@@ -1,7 +1,7 @@
 .PHONY: clean
 
 main.pdf: main.tex config/* part/*
-	latexmk -xelatex main
+	latexmk -xelatex -shell-escape main
 
 clean:
 	latexmk -C

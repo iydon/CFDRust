@@ -11,6 +11,7 @@ numpy = "^1.22.2"
 maturin = "^0.12.9"
 
 [tool.poetry.dev-dependencies]
+pygments = "^2.11.2"
 
 [[tool.poetry.source]]
 name = "aliyun"

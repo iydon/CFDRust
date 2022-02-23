@@ -30,11 +30,11 @@
         attach title to upper=\quad,
         #1,
     }
-    \tcbuselibrary{listings, breakable}
+    \tcbuselibrary{breakable, minted}
         \newtcblisting{fortran}[1]{
-            listing options={
-                language=fortran, numbers=left, numberstyle=\tiny, breaklines,
-                commentstyle=\color{white!50!black}\textit, basicstyle=\small\ttfamily,
+            listing engine=minted, minted style=trac, minted language=fortran,
+            minted options={
+                numbers=left, python3, breaklines,
             },
             title=\texttt{#1}, listing only, breakable,
             left=6mm, right=6mm, top=2mm, bottom=2mm,
@@ -45,7 +45,7 @@
     \numberwithin{table}{section}
 \usepackage[section]{placeins}
 \usepackage{enumitem}
-    % \setlist{noitemsep, left=0pt}
+    \setlist{noitemsep, left=0pt}
 \usepackage[backend=biber, style=gb7714-2015, gbpub=false]{biblatex}
     \addbibresource[location=local]{reference.bib}
 \usepackage[titletoc]{appendix}

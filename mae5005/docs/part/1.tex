@@ -1,13 +1,111 @@
 \section{第一次作业}
 
-\begin{fortran}{测试}
+\begin{homework}
+    Using the department Unix computer and a simple Fortran code, investigate how an input real number is outputted (i.e., interpreted by a computer in bits and bytes) under the single precision representation.
+
+    \begin{enumerate}[label=(\alph*)]
+        \item Input = 0.61E−45
+        \item Input = 0.82E−45
+        \item Input = 2.13E−45
+        \item Input = 2.34E−45
+        \item Input = 3.65E−10
+        \item Input = 4.06E+30
+        \item Input = 3.40E+38
+        \item Input = 3.41E+38
+    \end{enumerate}
+
+    Namely, in each case, (i) report the actual output of your input; (ii) explain the precise binary form used by the computer. Your code is expected to be less than 10 lines.
+\end{homework}
+
+\begin{fortran}{\href{https://github.com/iydon/CFDRust/blob/main/mae5005/homework/1/input_and_output.f90}{input\_and\_output.f90}}
 program main
-   use, intrinsic :: iso_fortran_env, only: sp=>real32
+   use, intrinsic :: iso_fortran_env, only: f64=>real32
    implicit none
-   real(sp) :: number
+
+   real(f64) :: number
 
    write(*, fmt='(A)', advance='no') 'Input  = '
    read(*, *) number
    write(*, fmt='(A, ES14.8, A, b32.32)') 'Output = ', number, ' = ', transfer(number, 0)
 end program main
+\end{fortran}
+
+\begin{fortran}{\href{https://github.com/iydon/CFDRust/blob/main/mae5005/homework/1/bailey_borwein_plouffe_formula.f90}{bailey\_borwein\_plouffe\_formula.f90}}
+program main
+   use, intrinsic :: iso_fortran_env, only: f32=>real32, f64=>real64, f128=>real128
+   implicit none
+   CHARACTER(LEN=23) :: format = '(A13, I4, A7, f36.34)'
+   integer :: n32, n64, n128
+   real(f32) :: pi32, eps32 = 1.4012984643E-45_f32
+   real(f64) :: pi64, eps64 = 4.9406564584124654E-324_f64
+   real(f128) :: pi128, eps128 = 6.4751751194380251109244389582276465525E-4966_f128
+
+   call calc_pi_f32(eps32, n32, pi32)
+   write(*, format) '32-bit: n = ', n32, ', pi = ', pi32
+
+   call calc_pi_f64(eps64, n64, pi64)
+   write(*, format) '64-bit: n = ', n64, ', pi = ', pi64
+
+   call calc_pi_f128(eps128, n128, pi128)
+   write(*, format) '128-bit: n = ', n128, ', pi = ', pi128
+
+   write(*, '(A)') '                   pi = 3.1415926535897932384626433832795029'
+end program main
+
+subroutine calc_pi_f32(eps, n, pi)
+   use, intrinsic :: iso_fortran_env, only: f32=>real32
+
+   real(f32), intent(in) :: eps
+   integer, intent(out) :: n
+   real(f32), intent(out) :: pi
+
+   real(f32) :: delta, a, b
+
+   n = 1 ; pi = 0.0 ; a = 1.0 ; b = 0.0
+   do while (.true.)
+      delta = (4.0/(b+1.0) - 2.0/(b+4.0) - 1.0/(b+5.0) - 1.0/(b+6.0)) / a
+      if (abs(delta) <= eps) then
+         exit
+      end if
+      n = n + 1 ; pi = pi + delta ; a = a * 16.0 ; b = b + 8.0
+   end do
+end subroutine calc_pi_f32
+
+subroutine calc_pi_f64(eps, n, pi)
+   use, intrinsic :: iso_fortran_env, only: f64=>real64
+
+   real(f64), intent(in) :: eps
+   integer, intent(out) :: n
+   real(f64), intent(out) :: pi
+
+   real(f64) :: delta, a, b
+
+   n = 1 ; pi = 0.0 ; a = 1.0 ; b = 0.0
+   do while (.true.)
+      delta = (4.0/(b+1.0) - 2.0/(b+4.0) - 1.0/(b+5.0) - 1.0/(b+6.0)) / a
+      if (abs(delta) <= eps) then
+         exit
+      end if
+      n = n + 1 ; pi = pi + delta ; a = a * 16.0 ; b = b + 8.0
+   end do
+end subroutine calc_pi_f64
+
+subroutine calc_pi_f128(eps, n, pi)
+   use, intrinsic :: iso_fortran_env, only: f128=>real128
+
+   real(f128), intent(in) :: eps
+   integer, intent(out) :: n
+   real(f128), intent(out) :: pi
+
+   real(f128) :: delta, a, b
+
+   n = 1 ; pi = 0.0 ; a = 1.0 ; b = 0.0
+   do while (.true.)
+      delta = (4.0/(b+1.0) - 2.0/(b+4.0) - 1.0/(b+5.0) - 1.0/(b+6.0)) / a
+      if (abs(delta) <= eps) then
+         exit
+      end if
+      n = n + 1 ; pi = pi + delta ; a = a * 16.0 ; b = b + 8.0
+   end do
+end subroutine calc_pi_f128
 \end{fortran}
