@@ -1,0 +1,67 @@
+\usepackage{geometry}
+    \geometry{a4paper, top=2.5cm, bottom=2.5cm, left=3.0cm, right=3.0cm}
+\usepackage[dvipsnames, table, xcdraw]{xcolor}
+\usepackage{hyperref}
+    \hypersetup{
+        pdftitle    = {MAE5005 Computational Fluid Dynamics},
+        pdfauthor   = {Iydon Liang, 12132274},
+        pdfkeywords = {CFD},
+        pdfcreator  = {Microsoft® Word 2077},
+        pdfproducer = {Microsoft® Word 2077},
+        colorlinks  = true,
+        linkcolor   = Aquamarine!50!black,
+        urlcolor    = YellowOrange!85!black,
+        citecolor   = violet!85!black,
+    }
+\usepackage{amsmath, physics, siunitx}
+\usepackage{fontawesome}
+\usepackage{tcolorbox}
+    \tcbuselibrary{skins, xparse}
+    \RenewTColorBox[auto counter, number within=section]{homework}{+!O{}}{%
+        enhanced, colframe=green!20!black, colback=yellow!10!white,
+        coltitle=green!40!black, fonttitle=\bfseries,
+        underlay={
+            \begin{tcbclipinterior}
+                \draw[help lines,step=5mm,yellow!80!black,shift={(interior.north west)}] (interior.south west) grid (interior.north east);
+            \end{tcbclipinterior}
+        },
+        title={作业~\thetcbcounter:},
+        label={homework@\thetcbcounter},
+        attach title to upper=\quad,
+        #1,
+    }
+    \tcbuselibrary{listings, breakable}
+        \newtcblisting{fortran}[1]{
+            listing options={
+                language=fortran, numbers=left, numberstyle=\tiny, breaklines,
+                commentstyle=\color{white!50!black}\textit, basicstyle=\small\ttfamily,
+            },
+            title=\texttt{#1}, listing only, breakable,
+            left=6mm, right=6mm, top=2mm, bottom=2mm,
+        }
+\usepackage{graphics, subcaption, float}
+    \numberwithin{equation}{section}
+    \numberwithin{figure}{section}
+    \numberwithin{table}{section}
+\usepackage[section]{placeins}
+\usepackage{enumitem}
+    % \setlist{noitemsep, left=0pt}
+\usepackage[backend=biber, style=gb7714-2015, gbpub=false]{biblatex}
+    \addbibresource[location=local]{reference.bib}
+\usepackage[titletoc]{appendix}
+\usepackage{epigraph}
+    \setlength\epigraphwidth{.6\textwidth}
+\usepackage{lettrine}
+\usepackage[lining]{ebgaramond}
+\usepackage{pgf-pie, pgfplots}  % pgfplotstable
+    \pgfplotsset{compat=1.17}
+    \usetikzlibrary{shadows}
+\usepackage{fancyhdr}
+    \pagestyle{fancy}
+\usepackage{longtable, tabularx, booktabs}
+% macro and environment
+\newcommand{\reference}{
+    \phantomsection
+    \addcontentsline{toc}{section}{\refname}
+        \printbibliography[title=\refname]
+}
