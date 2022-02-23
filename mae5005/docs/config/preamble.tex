@@ -1,5 +1,5 @@
 \usepackage{geometry}
-    \geometry{a4paper, top=2.5cm, bottom=2.5cm, left=3.0cm, right=3.0cm}
+    \geometry{a4paper, top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
 \usepackage[dvipsnames, table, xcdraw]{xcolor}
 \usepackage{hyperref}
     \hypersetup{
@@ -22,22 +22,27 @@
         coltitle=green!40!black, fonttitle=\bfseries,
         underlay={
             \begin{tcbclipinterior}
-                \draw[help lines,step=5mm,yellow!80!black,shift={(interior.north west)}] (interior.south west) grid (interior.north east);
+                \draw[help lines, step=5mm, yellow!80!black, shift={(interior.north west)}] (interior.south west) grid (interior.north east);
             \end{tcbclipinterior}
         },
-        title={作业~\thetcbcounter:},
-        label={homework@\thetcbcounter},
+        title={Homework~\thetcbcounter},
         attach title to upper=\quad,
         #1,
     }
     \tcbuselibrary{breakable, minted}
-        \newtcblisting{fortran}[1]{
+        \newtcblisting[auto counter]{fortran}[2][]{
             listing engine=minted, minted style=trac, minted language=fortran,
-            minted options={
-                numbers=left, python3, breaklines,
-            },
-            title=\texttt{#1}, listing only, breakable,
+            minted options={numbers=left, python3, breaklines, mathescape},
+            title={Code~\thetcbcounter: \texttt{#2}}, listing only, breakable,
             left=6mm, right=6mm, top=2mm, bottom=2mm,
+            #1,
+        }
+        \newtcbinputlisting[use counter from=fortran]{\python}[3][]{
+            listing engine=minted, minted style=trac, minted language=python,
+            minted options={numbers=left, python3, breaklines},
+            title={Code~\thetcbcounter: \texttt{#2}}, listing only, breakable,
+            left=6mm, right=6mm, top=2mm, bottom=2mm, listing file={#3},
+            #1,
         }
 \usepackage{graphics, subcaption, float}
     \numberwithin{equation}{section}
