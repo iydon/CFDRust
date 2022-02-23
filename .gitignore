@@ -11,6 +11,7 @@ pyproject.toml
 mae5005/*.out
 
 # MAE5005 homework documentation
+mae5005/docs/_minted-main/
 mae5005/docs/main.aux
 mae5005/docs/main.bbl
 mae5005/docs/main.bcf
