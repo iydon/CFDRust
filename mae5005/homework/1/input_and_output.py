@@ -1,6 +1,3 @@
-import typing as t
-
-
 class Bits:
     def __init__(self, bits: str = '1001') -> None:
         self._bits = bits.replace(' ', '').replace('_', '')
