@@ -75,7 +75,7 @@ class Fortran:
 
     def _label_extractor(self, annotation: str) -> t.Iterator[str]:
         is_test = False
-        for line in self._path.read_text().splitlines():
+        for line in self._path.read_text(encoding='utf-8').splitlines():
             if is_test:
                 if line.startswith('!'):
                     yield line[1:]
