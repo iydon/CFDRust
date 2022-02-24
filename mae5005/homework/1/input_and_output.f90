@@ -1,10 +1,10 @@
 ! Using the department Unix computer and a simple Fortran code, investigate how an input real number is outputted (i.e., interpreted by a computer in bits and bytes) under the single precision representation.
 !
-! (a) Input = 0.61E−45
-! (b) Input = 0.82E−45
-! (c) Input = 2.13E−45
-! (d) Input = 2.34E−45
-! (e) Input = 3.65E−10
+! (a) Input = 0.61E-45
+! (b) Input = 0.82E-45
+! (c) Input = 2.13E-45
+! (d) Input = 2.34E-45
+! (e) Input = 3.65E-10
 ! (f) Input = 4.06E+30
 ! (g) Input = 3.40E+38
 ! (h) Input = 3.41E+38
