@@ -37,6 +37,12 @@
             left=6mm, right=6mm, top=2mm, bottom=2mm,
             #1,
         }
+        \newtcblisting{plaintext}[1][]{
+            listing engine=minted, minted style=trac, minted language=text,
+            minted options={numbers=left, gobble=0, python3, breaklines, mathescape},
+            listing only, breakable, left=6mm, right=6mm, top=2mm, bottom=2mm,
+            #1,
+        }
         \newtcbinputlisting[use counter from=fortran]{\python}[3][]{
             listing engine=minted, minted style=trac, minted language=python,
             minted options={numbers=left, python3, breaklines},
