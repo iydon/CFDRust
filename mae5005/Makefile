@@ -7,8 +7,8 @@ help:   ## Print help information
 
 test:   ## Run the unit tests
 	$(PYTHON) test.py \
-		homework/1/input_and_output.f90 \
-		homework/1/bailey_borwein_plouffe_formula.f90
+		code/1/input_and_output.f90 \
+		code/1/bailey_borwein_plouffe_formula.f90
 
 clean:  ## Clear compiled files
 	rm *.out
