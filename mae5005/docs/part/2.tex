@@ -1,0 +1,99 @@
+\section{第二次作业}
+
+\begin{homework}[label={H:2-1}]
+    Consider a unidirectional flow of incompressible fluid in a channel of width $2L$, driven by a constant pressure gradient $-\dv*{p}{x}$, with the fluid at rest at $t=0$. This unsteady flow $u(y, t)$ is governed by the following Navier-Stokes equation:
+    \begin{equation}\label{E:2-1-1}
+        \pdv{u}{t} = -\frac{1}{\rho}\dv{p}{x} + \nu\pdv[2]{u}{y},
+        \quad
+        -L\leq y\leq L,
+    \end{equation}
+    where $\nu$ is the fluid kinematic viscosity. Clearly, the initial and boundary conditions are
+    \begin{equation}\label{E:2-1-2}
+        u(x, t=0) = 0,
+        \quad
+        u(x=\pm L, t) = 0.
+    \end{equation}
+
+    \begin{enumerate}[label=(\alph*)]
+        \item First, show that the steady state solution is given by
+            \begin{equation}\label{E:2-1-3}
+                u(y, t\to\infty) = u_0\qty(1-\frac{y^2}{L^2}),
+            \end{equation}
+            and determine the expression for $u_0$.
+        \item Next, based on what we have obtained in class, write down the general time-dependent solution $u(y, t)$ analytically.
+        \item What type (parabolic, hyperbolic, or elliptic) of partial differential equation is Equation~\eqref{E:2-1-1}?
+    \end{enumerate}
+\end{homework}
+
+pass
+
+
+
+\begin{homework}[label={H:2-2}]
+    We now solve the last problem numerically, by the following algorithm: the explicit Euler scheme in time, and central finite-difference in space,
+    \begin{equation}\label{E:2-2-1}
+        \frac{u^{n+1}_j-u^n_j}{\Delta t}
+        =
+        -\frac{1}{\rho}\dv{p}{x} + \nu\frac{u^n_{j-1}-2u^n_j+u^n_{j+1}}{\Delta y^2},
+    \end{equation}
+    where $\Delta y=2L/N$, $u^n_j=u(y_j, t_n)$ with $y_j=-L+(j-1)\Delta y$ and $t_n=n\Delta t$ ($n=0, 1, 2, 3, \ldots$). The two end nodes $j=1$ and $j=N+1$ are located on the channel walls. Assume $L=1$, $u_0=1$, and $\nu=0.1$. The time step size will be set according to $\Delta t=0.32\Delta y^2/\nu$.
+
+    \begin{enumerate}[label=(\alph*)]
+        \item Start with the code Dr. Wang provided in Lecture 1. Run the code with $N=8, 16, 32$.  Plot and compare the velocity profiles from different grid resolutions at $\nu t/L^2=1.28m/N^2=0.2, 1.0, 10.0$, where $m$ is the number of time steps. You need to modify Dr. Wang's code as needed. You also need to find a nice plotting package (e.g. UCAR's NCL) to do tge plots. Also find out at what dimensionless time, $\nu t/L^2$, the velocity at the center of the channel ($y=0$) reaches the value of $0.99u_0$ (meaning the steady state is essentially reached) for the three different grid resolutions, respectively.
+        \item Use the analytical solution as the benchmark, plot the errors at $\nu t/L^2=0.2, 1.0, 10.0$, for the three grid resolutions in~(a). Make your own observations.
+        \item Plot and compare the time evolution of the properly normalized wall viscous stress from the three resolutions and the analytical solution. Explain how to compute the wall viscous stress for both the numerical and analytical solutions.
+        \item Summarize any problems you have encountered when doing this problem, and what you have learned after doing this problem (in numerical method, coding, plotting, accessing the department Unix server, Unix system, etc.).
+    \end{enumerate}
+\end{homework}
+
+pass
+
+
+
+\begin{homework}[label={H:2-3}]
+    The basic fluid mechanics equations contain the continuity, momentum, and energy equations as follows:
+    \begin{subequations}\label{E:2-3-1}
+        \begin{align}
+            \pdv{\rho}{t} + \pdv{(\rho u_j)}{x_j} &= 0 \label{E:2-3-1-a} \\
+            \rho\pdv{u_i}{t} + \rho u_j\pdv{u_i}{x_j} &= \rho g_i + \pdv{\tau_{ij}}{x_j} \label{E:2-3-1-b} \\
+            \rho\pdv{e}{t} + \rho u_j\pdv{e}{x_j} &= -p\pdv{u_j}{x_j} + \rho\varepsilon - \pdv{q_j}{x_j} \label{E:2-3-1-c}
+        \end{align}
+    \end{subequations}
+    where the total stress tensor and the heat flux are given as
+    \begin{equation}\label{E:2-3-2}
+        \tau_{ij} = \qty(-p + \mu^V\pdv{u_k}{x_k}\delta_{ij}) + 2\mu\qty(S_{ij} - \frac{1}{D}\pdv{u_k}{x_k}\delta_{ij}),
+        \quad
+        q_j = -k\pdv{T}{x_j}
+    \end{equation}
+    where $D$ is the number of space dimensions ($D=2$ or $D=3$). The rate of viscous dissipation is
+    \begin{equation}\label{E:2-3-3}
+        \rho\varepsilon = 2\mu\qty(S_{ij} - \frac{1}{D}\pdv{u_k}{x_k}\delta_{ij})^2 + \mu^V\qty(\pdv{u_k}{x_k})^2
+    \end{equation}
+    where $\mu$ and $\mu^V$ are shear and bulk viscosity, respectively. The strain rate is $S_{ij}\equiv\frac{1}{2}\qty(\pdv{u_i}{x_j}+\pdv{u_j}{x_i})$.
+
+    \begin{enumerate}[label=(\alph*)]
+        \item What specific physical law does each of Equations~\eqref{E:2-3-1}, represent?
+        \item What are the physical meanings of $\tau_{ij}$ and $q_j$?
+        \item What is the physical significance of the quantity $\varepsilon$?
+        \item List the physical dimensions of all quantities involved in the above equations.
+    \end{enumerate}
+\end{homework}
+
+pass
+
+
+
+\begin{homework}[label={H:2-4}]
+    In the class, we discuss the flux Jacobian for the 1D linearized, isentropic acoustic wave equations
+    \begin{equation}\label{E:2-4-1}
+        \pdv{F(U)}{U} = \mqty(0 & \rho_0 \\ c^2_s/\rho_0 & 0)
+    \end{equation}
+    where $\rho_0$ is the base (background) density and $c_s\equiv\sqrt{\gamma p/\rho}$ is the speed of the sound.
+
+    \begin{enumerate}[label=(\alph*)]
+        \item Determine the eigenvalues and corresponding eigenvectors for the matrix;
+        \item Based on the results in part~(a), work out the diagonal decomposition of the matrix as $R\Lambda R^{-1}$.
+    \end{enumerate}
+\end{homework}
+
+pass
