@@ -1,63 +1,3 @@
-program main
-   use, intrinsic :: iso_fortran_env, only: f64=>real64
-   use solution, only: stepwise, numerical, analytical
-   implicit none
-
-   ! user-specified variables
-   integer :: N ! N = 8, 16, 32
-   real(f64) :: nutL ! ν t / L² = 0.2, 1.0, 10.0
-   ! known parameters
-   real(f64), parameter :: L = 1.0, nu = 0.1
-   real(f64), parameter :: u0 = 1.0 ! u₀ = -L² / (2 ρ ν) pₓ
-   ! derived variables
-   integer :: nt ! ν nt Δt / L² = nutL
-   real(f64) :: dy ! Δy = 2 L / N
-   real(f64) :: dt ! Δt = 0.32 Δy² / ν
-   ! numerical and analytical solutions
-   real(f64), allocatable :: un(:), ua(:)
-   ! unimportant temporary variables
-   integer :: ith, term = 100
-   character(len=25) :: format = '(A, I4, A, f9.6, A, f8.6)'
-
-   write(*, fmt='(A)', advance='no') 'N     = '; read(*, *) N
-   write(*, fmt='(A)', advance='no') 'νt/L² = '; read(*, *) nutL
-   dy = 2.0 * L / N
-   dt = 0.32 * dy**2 / nu ! 1.28 * L**2 / N**2 / nu
-   nt = int(nutL * L**2 / nu / dt) ! int(nutL / 1.28 * N**2)
-   allocate(un(N+1), ua(N+1))
-   open(1, file='numerical.dat', action='write')
-   open(2, file='analytical.dat', action='write')
-
-   ! plot and compare the velocity profiles from different grid resolutions
-   call numerical(N, nt, L, nu, u0, dt, un)
-   call analytical(N, nt, L, nu, u0, dt, ua, term)
-   write(1, *) un
-   write(2, *) ua
-   ! find out at what dimensionless time, νt/L², the velocity at the center of the channel (y=0) reaches the value of 0.99u₀
-   write(*, format) '[C] nt, νt/L², u(0, T)/u₀ = ', nt, ', ', nutL, ', ', un(int(N/2)+1)/u0
-   ith = 0; un = 0.0
-   do while (.true.)
-      ith = ith + 1
-      call stepwise(N, L, nu, u0, dt, un)
-      if (un(int(N/2)+1) >= 0.99*u0) then
-         write(*, format) '[N] nt, νt/L², u(0, T)/u₀ = ', ith, ', ', nu*ith*dt/L**2, ', ', un(int(N/2)+1)/u0
-         exit
-      end if
-   end do
-   ith = 0
-   do while (.true.)
-      ith = ith + 1
-      call analytical(N, ith, L, nu, u0, dt, ua, term)
-      if (ua(int(N/2)+1) >= 0.99*u0) then
-         write(*, format) '[A] nt, νt/L², u(0, T)/u₀ = ', ith, ', ', nu*ith*dt/L**2, ', ', ua(int(N/2)+1)/u0
-         exit
-      end if
-   end do
-
-   close(1); close(2)
-   deallocate(un, ua)
-end program
-
 module solution
    use, intrinsic :: iso_fortran_env, only: f64=>real64
    implicit none
@@ -119,6 +59,66 @@ contains
       end do
    end subroutine analytical
 end module solution
+
+program main
+   use, intrinsic :: iso_fortran_env, only: f64=>real64
+   use solution, only: stepwise, numerical, analytical
+   implicit none
+
+   ! user-specified variables
+   integer :: N ! N = 8, 16, 32
+   real(f64) :: nutL ! ν t / L² = 0.2, 1.0, 10.0
+   ! known parameters
+   real(f64), parameter :: L = 1.0, nu = 0.1
+   real(f64), parameter :: u0 = 1.0 ! u₀ = -L² / (2 ρ ν) pₓ
+   ! derived variables
+   integer :: nt ! ν nt Δt / L² = nutL
+   real(f64) :: dy ! Δy = 2 L / N
+   real(f64) :: dt ! Δt = 0.32 Δy² / ν
+   ! numerical and analytical solutions
+   real(f64), allocatable :: un(:), ua(:)
+   ! unimportant temporary variables
+   integer :: ith, term = 100
+   character(len=25) :: format = '(A, I4, A, f9.6, A, f8.6)'
+
+   write(*, fmt='(A)', advance='no') 'N     = '; read(*, *) N
+   write(*, fmt='(A)', advance='no') 'νt/L² = '; read(*, *) nutL
+   dy = 2.0 * L / N
+   dt = 0.32 * dy**2 / nu ! 1.28 * L**2 / N**2 / nu
+   nt = int(nutL * L**2 / nu / dt) ! int(nutL / 1.28 * N**2)
+   allocate(un(N+1), ua(N+1))
+   open(1, file='numerical.dat', action='write')
+   open(2, file='analytical.dat', action='write')
+
+   ! plot and compare the velocity profiles from different grid resolutions
+   call numerical(N, nt, L, nu, u0, dt, un)
+   call analytical(N, nt, L, nu, u0, dt, ua, term)
+   write(1, *) un
+   write(2, *) ua
+   ! find out at what dimensionless time, νt/L², the velocity at the center of the channel (y=0) reaches the value of 0.99u₀
+   write(*, format) '[C] nt, νt/L², u(0, T)/u₀ = ', nt, ', ', nutL, ', ', un(int(N/2)+1)/u0
+   ith = 0; un = 0.0
+   do while (.true.)
+      ith = ith + 1
+      call stepwise(N, L, nu, u0, dt, un)
+      if (un(int(N/2)+1) >= 0.99*u0) then
+         write(*, format) '[N] nt, νt/L², u(0, T)/u₀ = ', ith, ', ', nu*ith*dt/L**2, ', ', un(int(N/2)+1)/u0
+         exit
+      end if
+   end do
+   ith = 0
+   do while (.true.)
+      ith = ith + 1
+      call analytical(N, ith, L, nu, u0, dt, ua, term)
+      if (ua(int(N/2)+1) >= 0.99*u0) then
+         write(*, format) '[A] nt, νt/L², u(0, T)/u₀ = ', ith, ', ', nu*ith*dt/L**2, ', ', ua(int(N/2)+1)/u0
+         exit
+      end if
+   end do
+
+   close(1); close(2)
+   deallocate(un, ua)
+end program
 
 ! #[compile]
 ! {

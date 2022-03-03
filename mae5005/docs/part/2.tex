@@ -25,7 +25,35 @@
     \end{enumerate}
 \end{homework}
 
-pass
+\paragraph{(a)}
+由稳态（Steady State）可知 $\pdv*{u}{t}\equiv 0$，由压力梯度（Pressure Gradient）恒定可将 $\dv*{p}{x}$ 视为常数。于是，可以将式~\eqref{E:2-1-3} 代入到式~\eqref{E:2-1-1} 中，整理后有
+\begin{equation*}
+    \frac{1}{\rho\nu}\dv{p}{x} = \pdv[2]{u}{y} = -\frac{2u_0}{L^2}
+    \quad
+    \text{where } u=u(y, t\to\infty),
+\end{equation*}
+即
+\begin{equation*}
+    u_0 = -\frac{L^2}{2\rho\nu}\dv{p}{x}.
+\end{equation*}
+
+\paragraph{(b)}
+由课堂上的推导，可知偏微分方程的解析解为
+\begin{equation*}
+    \begin{aligned}
+        \frac{u(y, t)}{u_0} &= f\qty(\frac{y}{L}, \frac{\nu t}{L^2}) \\
+                            &= \qty(1 - \frac{y^2}{L^2}) - \sum_{k=0}^\infty\frac{4(-1)^k}{\qty[\pi(k+0.5)]^3}\exp\qty[-\frac{(k+0.5)^2\pi^2\nu t}{L^2}]\cos\qty[(k+0.5)\pi\frac{y}{L}],
+    \end{aligned}
+\end{equation*}
+即
+\begin{equation*}
+    u(y, t) = -\frac{L^2}{2\rho\nu}\dv{p}{x} \qty{
+        \qty(1 - \frac{y^2}{L^2}) - \sum_{k=0}^\infty\frac{4(-1)^k}{\qty[\pi(k+0.5)]^3}\exp\qty[-\frac{(k+0.5)^2\pi^2\nu t}{L^2}]\cos\qty[(k+0.5)\pi\frac{y}{L}]
+    }.
+\end{equation*}
+
+\paragraph{(c)}
+式~\eqref{E:2-1-1} 在空间与时间上均为抛物型（Parabolic）偏微分方程。
 
 
 
