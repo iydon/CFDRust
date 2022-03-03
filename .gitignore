@@ -9,7 +9,9 @@ pyproject.toml
 
 # MAE5005
 mae5005/other
-mae5005/*.out
+mae5005/**/*.dat
+mae5005/**/*.mod
+mae5005/**/*.out
 
 # MAE5005 homework documentation
 mae5005/docs/_minted-main/
