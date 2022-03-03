@@ -12,4 +12,4 @@ test:   ## Run the unit tests
 		code/2/unidirectional_flow.f90
 
 clean:  ## Clear compiled files
-	rm *.out *.mod
+	rm *.dat *.mod *.out
