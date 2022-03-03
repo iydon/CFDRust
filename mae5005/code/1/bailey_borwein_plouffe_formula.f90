@@ -1,22 +1,3 @@
-! In 1995 (very recent in terms of the history of mathematics), Simon Plouffe discovered an amazing formulae for computing π, which, in principle, allows one to compute π to any binary (decimal) digit. His formulae is
-!
-! \pi = \sum_{k=0}^{\infty} \left[
-!     \frac{1}{16^k} \left(
-!         \frac{4}{8k+1} - \frac{2}{8k+4} - \frac{1}{8k+5} - \frac{1}{8k+6}
-!     \right)
-! \right]
-!
-! Clearly, the different terms in terms of k, decreases quickly as k is increased. Here, we shall use the above formulae to compute π, at different accuracies and investigate how many terms are needed for each case.
-!
-! (a) Write a single precision Fortran code, to compute π using the above formulae;
-! (b) Write a double precision Fortran code, to compute π using the above formulae;
-! (c) Write a quadruple precision Fortran code, to compute π using the above formulae.
-!
-! Report, in each case, what do you obtain? what is the accuracy? How many terms, in terms of k, are needed to achieve the accuracy? Your code for each part is expected to be less than 20 lines. The value of π, up to 100th decimal places, is given here
-!
-! π = 3.1415926535 8979323846 2643383279 5028841971 6939937510
-!       5820974944 5923078164 0628620899 8628034825 3421170679
-
 program main
    use, intrinsic :: iso_fortran_env, only: f32=>real32, f64=>real64, f128=>real128
    implicit none
