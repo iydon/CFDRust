@@ -17,20 +17,7 @@
     Namely, in each case, (i) report the actual output of your input; (ii) explain the precise binary form used by the computer. Your code is expected to be less than 10 lines.
 \end{homework}
 
-\begin{fortran}[label={C:1-1}]{\href{https://github.com/iydon/CFDRust/blob/main/mae5005/code/1/input_and_output.f90}{input\_and\_output.f90}}
-program main
-   use, intrinsic :: iso_fortran_env, only: f64=>real32
-   implicit none
-
-   real(f64) :: number
-
-   write(*, fmt='(A)', advance='no') 'Input  = '
-   read(*, *) number
-   write(*, fmt='(A, ES14.8, A, b32.32)') 'Output = ', number, ' = ', transfer(number, 0)
-end program main
-\end{fortran}
-
-根据 Homework~\ref{H:1-1}，可以编写如 Code~\ref{C:1-1} 所示的代码，其与示例代码主要有以下两点不同：
+根据 Homework~\ref{H:1-1}，可以编写如附录~\ref{S:appendix-fortran} 中 Code~\ref{C:1-1} 所示的代码，其与示例代码主要有以下两点不同：
 
 \begin{itemize}
     \item 去除无限循环，一方面是为了避免使用键盘中断的方式退出程序，保证正确的程序返回码，另一方面是为了构建输入-输出模式的单元测试，方便在不同平台上快速验证；
@@ -85,7 +72,7 @@ end program main
     \end{tabular}
 \end{table}
 
-根据 \texttt{binary32} 格式与浮点数算术标准\cite{wiki:single-precision_floating-point}，可以编写如附录~\ref{S:appendix-code} 中 Code~\ref{C:python-bits} 所示的辅助程序，将 \texttt{binary32} 格式中的符号位、指数位与小数位分别提取出来，并计算出对应的浮点数，最后的计算公式如表~\ref{T:1-1-bits} 所示，而具体浮点数的大小如表~\ref{T:1-1-input_and_output} 所示。
+根据 \texttt{binary32} 格式与浮点数算术标准\cite{wiki:single-precision_floating-point}，可以编写如附录~\ref{S:appendix-python} 中 Code~\ref{C:python-bits} 所示的辅助程序，将 \texttt{binary32} 格式中的符号位、指数位与小数位分别提取出来，并计算出对应的浮点数，最后的计算公式如表~\ref{T:1-1-bits} 所示，而具体浮点数的大小如表~\ref{T:1-1-input_and_output} 所示。
 
 \begin{table}[H]
     \caption{\texttt{binary32} 格式与浮点数的转换}\label{T:1-1-bits}
@@ -137,87 +124,7 @@ end program main
     \end{align*}
 \end{homework}
 
-\begin{fortran}[label={C:1-2}]{\href{https://github.com/iydon/CFDRust/blob/main/mae5005/code/1/bailey_borwein_plouffe_formula.f90}{bailey\_borwein\_plouffe\_formula.f90}}
-program main
-   use, intrinsic :: iso_fortran_env, only: f32=>real32, f64=>real64, f128=>real128
-   implicit none
-   CHARACTER(LEN=23) :: format = '(A13, I4, A7, f36.34)'
-   integer :: n32, n64, n128
-   real(f32) :: pi32, eps32 = 1.4012984643E-45_f32
-   real(f64) :: pi64, eps64 = 4.9406564584124654E-324_f64
-   real(f128) :: pi128, eps128 = 6.4751751194380251109244389582276465525E-4966_f128
-
-   call calc_pi_f32(eps32, n32, pi32)
-   write(*, format) '32-bit: n = ', n32, ', pi = ', pi32
-
-   call calc_pi_f64(eps64, n64, pi64)
-   write(*, format) '64-bit: n = ', n64, ', pi = ', pi64
-
-   call calc_pi_f128(eps128, n128, pi128)
-   write(*, format) '128-bit: n = ', n128, ', pi = ', pi128
-
-   write(*, '(A)') '                   pi = 3.1415926535897932384626433832795029'
-end program main
-
-subroutine calc_pi_f32(eps, n, pi)
-   use, intrinsic :: iso_fortran_env, only: f32=>real32
-
-   real(f32), intent(in) :: eps
-   integer, intent(out) :: n
-   real(f32), intent(out) :: pi
-
-   real(f32) :: delta, a, b
-
-   n = 1 ; pi = 0.0 ; a = 1.0 ; b = 0.0
-   do while (.true.)
-      delta = (4.0/(b+1.0) - 2.0/(b+4.0) - 1.0/(b+5.0) - 1.0/(b+6.0)) / a
-      if (abs(delta) <= eps) then
-         exit
-      end if
-      n = n + 1 ; pi = pi + delta ; a = a * 16.0 ; b = b + 8.0
-   end do
-end subroutine calc_pi_f32
-
-subroutine calc_pi_f64(eps, n, pi)
-   use, intrinsic :: iso_fortran_env, only: f64=>real64
-
-   real(f64), intent(in) :: eps
-   integer, intent(out) :: n
-   real(f64), intent(out) :: pi
-
-   real(f64) :: delta, a, b
-
-   n = 1 ; pi = 0.0 ; a = 1.0 ; b = 0.0
-   do while (.true.)
-      delta = (4.0/(b+1.0) - 2.0/(b+4.0) - 1.0/(b+5.0) - 1.0/(b+6.0)) / a
-      if (abs(delta) <= eps) then
-         exit
-      end if
-      n = n + 1 ; pi = pi + delta ; a = a * 16.0 ; b = b + 8.0
-   end do
-end subroutine calc_pi_f64
-
-subroutine calc_pi_f128(eps, n, pi)
-   use, intrinsic :: iso_fortran_env, only: f128=>real128
-
-   real(f128), intent(in) :: eps
-   integer, intent(out) :: n
-   real(f128), intent(out) :: pi
-
-   real(f128) :: delta, a, b
-
-   n = 1 ; pi = 0.0 ; a = 1.0 ; b = 0.0
-   do while (.true.)
-      delta = (4.0/(b+1.0) - 2.0/(b+4.0) - 1.0/(b+5.0) - 1.0/(b+6.0)) / a
-      if (abs(delta) <= eps) then
-         exit
-      end if
-      n = n + 1 ; pi = pi + delta ; a = a * 16.0 ; b = b + 8.0
-   end do
-end subroutine calc_pi_f128
-\end{fortran}
-
-根据 Homework~\ref{H:1-2}，可以编写如 Code~\ref{C:1-2} 所示的代码。通过调研，\texttt{Fortran} 的子程序（\texttt{subroutine}）与函数均不支持泛型，且 \texttt{Fortran} 的流程控制语句无法写成一行的形式，而宏不支持生成多行内容。因此，放弃了降低可读性的奇技淫巧，采用朴素的方法分别实现作业要求中的单精度、双精度与四精度子程序。不同精度子程序实现\footnote{这句话读起来有些别扭，此处的“实现”为名词：implementation。}的差异只在类型别名上，而且子程序不忽略空格的话也只有 18 行，因此，应该可以看作满足作业中的行数要求。
+根据 Homework~\ref{H:1-2}，可以编写如附录~\ref{S:appendix-fortran} 中 Code~\ref{C:1-2} 所示的代码。通过调研，\texttt{Fortran} 的子程序（\texttt{subroutine}）与函数均不支持泛型，且 \texttt{Fortran} 的流程控制语句无法写成一行的形式，而宏不支持生成多行内容。因此，放弃了降低可读性的奇技淫巧，采用朴素的方法分别实现作业要求中的单精度、双精度与四精度子程序。不同精度子程序实现\footnote{这句话读起来有些别扭，此处的“实现”为名词：implementation。}的差异只在类型别名上，而且子程序不忽略空格的话也只有 18 行，因此，应该可以看作满足作业中的行数要求。
 
 易证，$\tfrac{4}{8k+1} - \tfrac{2}{8k+4} - \tfrac{1}{8k+5} - \tfrac{1}{8k+6}$ 与 $\tfrac{1}{16^k}$ 随着非负整数 $k$ 的增大而逐步趋近于零\footnote{$f(k+1)-f(k)<0$ 且 $f(k)>0$。}。因此，可以给定一个比较小的正数作为容忍度，通过顺序累加公式中的项数来逼近 $\pi$，当项的大小\footnote{编写代码时没有证明项数递减的结论，因此，仍然使用绝对值来比较大小，算是历史遗留问题。}小于给定的容忍度时，返回累加项数与 $\pi$ 的近似值。以上就是代码的思路，最后在主函数中对结果进行格式化输出即可。
 
