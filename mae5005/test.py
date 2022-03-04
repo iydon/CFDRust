@@ -1,6 +1,5 @@
 import json
 import pathlib as p
-import re
 import subprocess as s
 import typing as t
 
@@ -24,6 +23,11 @@ class Fortran:
         if not self._is_compiled:
             self._is_compiled = self._compile(args)
         return self
+
+    def communicate(self, stdin: t.Optional[str] = None) -> t.Tuple[bytes, bytes]:
+        with s.Popen(f'./{self._path.stem}.out', stdin=s.PIPE, stdout=s.PIPE) as process:
+            input = None if stdin is None else stdin.encode()
+            return process.communicate(input)
 
     def test(self) -> bool:
         self.compile()
@@ -51,15 +55,13 @@ class Fortran:
             return False
 
     def _run(self, stdin: t.Optional[str] = None, stdout: t.Optional[str] = None) -> bool:
-        with s.Popen(f'./{self._path.stem}.out', stdin=s.PIPE, stdout=s.PIPE) as process:
-            input = None if stdin is None else stdin.encode()
-            out, err = process.communicate(input)
-            if err is not None:
-                print(err.decode())
-                return False
-            elif stdout is not None:
-                return out.decode().strip() == stdout.strip()
-            return True
+        out, err= self.communicate(stdin)
+        if err is not None:
+            print(err.decode())
+            return False
+        elif stdout is not None:
+            return out.decode().strip() == stdout.strip()
+        return True
 
     def _tests(self) -> t.List[t.Dict[str, str]]:
         try:
