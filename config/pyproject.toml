@@ -12,6 +12,7 @@ maturin = "^0.12.9"
 
 [tool.poetry.dev-dependencies]
 pygments = "^2.11.2"
+matplotlib = "^3.5.1"
 
 [[tool.poetry.source]]
 name = "aliyun"
