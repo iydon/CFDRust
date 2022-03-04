@@ -8,6 +8,7 @@ poetry.lock
 pyproject.toml
 
 # MAE5005
+mae5005/__pycache__
 mae5005/other
 mae5005/**/*.dat
 mae5005/**/*.mod
