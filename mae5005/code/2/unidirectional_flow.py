@@ -36,7 +36,7 @@ def plot_dimensionless_time(Ns: t.List[int], nutLs: t.List[float], alpha: float 
     fig, ax = plt.subplots(1, figsize=(12, 6))
     ax.plot(Ns, nutLs, 'o-', alpha=alpha)
     ax.grid()
-    ax.set_xlabel('Grid Resolution (N)')
+    ax.set_xlabel('Grid Number (N)')
     ax.set_ylabel('Dimensionless Time (νt/L²)')
     fig.savefig('dimensionless_time.png', bbox_inches='tight', transparent=True)
 
@@ -49,7 +49,7 @@ def plot_error(norms: np.ndarray, Ns: np.ndarray, nutLs: np.ndarray) -> None:
     ax.set_title(r'$\log_{10}||\mathrm{numerical}-\mathrm{analytical}||_2$')
     ax.set_xticks(np.arange(Ns.size), rotation=90, labels=Ns)
     ax.set_yticks(np.arange(nutLs.size), labels=map('{:.6f}'.format, nutLs))
-    ax.set_xlabel('Grid Resolution (N)')
+    ax.set_xlabel('Grid Number (N)')
     ax.set_ylabel('Dimensionless Time (νt/L²)')
     fig.colorbar(im, ax=ax)
     fig.savefig('error.png', bbox_inches='tight', transparent=True)
@@ -63,7 +63,7 @@ if __name__ == '__main__':
         numerical, analytical = np.loadtxt('numerical.dat'), np.loadtxt('analytical.dat')
         plot_solution(numerical, analytical, f'{N}-{nutL}.png')
     # 2. find out at what dimensionless time, νt/L², the velocity at the center of the channel (y=0) reaches the value of 0.99u₀
-    Ns = list(range(2, 101, 2))
+    Ns = list(range(2, 129, 2))
     nutLs = [None] * len(Ns)
     pattern = re.compile(r'\[N\][^\n]+\n')
     for ith, N in enumerate(Ns):
