@@ -41,8 +41,11 @@ def plot_dimensionless_time(Ns: t.List[int], nutLs: t.List[float], alpha: float 
     fig.savefig('dimensionless_time.png', bbox_inches='tight', transparent=True)
 
 def plot_error(norms: np.ndarray, Ns: np.ndarray, nutLs: np.ndarray) -> None:
+    A = np.log10(norms)
     fig, ax = plt.subplots(1, figsize=(16, 9))
-    im = ax.imshow(np.log10(norms))
+    im = ax.imshow(A)
+    co = ax.contour(A, colors='black')
+    ax.clabel(co, inline=True, fontsize=8)
     ax.set_title(r'$\log_{10}||\mathrm{numerical}-\mathrm{analytical}||_2$')
     ax.set_xticks(np.arange(Ns.size), rotation=90, labels=Ns)
     ax.set_yticks(np.arange(nutLs.size), labels=map('{:.6f}'.format, nutLs))
