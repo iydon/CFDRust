@@ -55,7 +55,7 @@ class Fortran:
             return False
 
     def _run(self, stdin: t.Optional[str] = None, stdout: t.Optional[str] = None) -> bool:
-        out, err= self.communicate(stdin)
+        out, err = self.communicate(stdin)
         if err is not None:
             print(err.decode())
             return False
