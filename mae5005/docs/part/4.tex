@@ -1,0 +1,92 @@
+\section{第四次作业}
+
+\begin{homework}[label={H:4-1}]
+    Consider the 1D transient laminar flow problem again. The problem is formulated by the following partial differential equation
+    \begin{equation}\label{E:4-1-1}
+        \pdv{u}{t} = g + \nu\pdv[2]{u}{y},
+        \quad
+        -L\leq y\leq L
+    \end{equation}
+    where $u(y, t)$ is the flow velocity, $\nu$ is the kinematic viscosity, $L$ is the half channel width. The body force per unit mass is related to the maximum flow velocity $u_0$ at steady state as $g=2\nu u_0/L^2$. The initial and boundary conditions are
+    \begin{equation}\label{E:4-1-2}
+        u(y, t=0)=0, \quad
+        u(y=\pm L, t)=0.
+    \end{equation}
+
+    The central-differencing-in-space and forward-Euler-in-time finite-difference formulation is
+    \begin{equation}\label{E:4-1-3}
+        \frac{u_j^{n+1}-u_j^n}{\Delta t} = g + \nu\frac{u_{j-1}^n-2u_j^n+u_{j+1}^n}{\Delta y^2}, \quad
+        \text{for } j=2, 3, 4, \ldots, N-1, N.
+    \end{equation}
+    where $u_j^n=u(y_j, t_n)$ with $y_j=-L+(j-1)\Delta y$ and $t_n=n\Delta t$. Here $\Delta y=2L/N$ and $\Delta t$ is the time step size. Assume $L=1$, $u_0=1$, $\nu=0.1$. Define $\alpha\equiv\nu\Delta t/\Delta y^2$. In the recent lecture, we derived the analytical solution for the modified equation
+    \begin{equation}\label{E:4-1-4}
+        \frac{u_m(y, t)}{u_0} = \qty(1-\frac{y^2}{L^2})
+            - \sum_{k=0}^\infty\frac{4(-1)^k}{\qty[\pi(k+0.5)]^3}\exp\qty[
+                -\frac{(k+0.5)^2\pi^2\nu_m(k)t}{L^2}
+            ]\cos[
+                (k+0.5)\pi\frac{y}{L}
+            ]
+    \end{equation}
+    which implies that an effective viscosity $\nu_m(k)$ in ``the method of separation of variables'' solution (Problem~\ref{H:1-1}):
+    \begin{equation}\label{E:4-1-5}
+        \nu_m(k) = \nu\qty[
+            1 + \qty(\frac{\alpha}{2}-\frac{1}{12})\qty(\frac{2(k+0.5)\pi}{N})^2
+              + \qty(\frac{\alpha^2}{3}-\frac{\alpha}{12} + \frac{1}{360})\qty(\frac{2(k+0.5)\pi}{N})^4
+        ]
+    \end{equation}
+
+    \begin{enumerate}[label=(\alph*)]
+        \item Develop a code to compare the normalized error predicted, namely,
+            \begin{equation}\label{E:4-1-6}
+                \abs{\frac{u_m(y, t) - u(y, t)}{u_0}}
+            \end{equation}
+            with the normalized error from the actual numerical simulation
+            \begin{equation}\label{E:4-1-7}
+                \abs{\frac{u_N(y, t) - u(y, t)}{u_0}}
+            \end{equation}
+            for the case of $N=16$ and $\alpha=0.32$ (similar to Problem~\ref{H:2-2}). Plot and compare the two at the channel center ($y=0$) as a function of dimensionless time. Here $u_N, u_m, u$ denote the numerical solution, the analytical solution of the modified equation, the the analytical solution of the original problem, respectively.
+        \item Using the solution above, predict the normalized errors in the velocity profile and compare with the normalized errors in the numerical solutions for $N=8, 16, 32$ for a fixed $\alpha=0.32$, at two dimensionless times $\nu t/L^2=0.2$ and $10.0$. Comment on your results.
+        \item Use your code, for the case of $N=32$, try 4 different $\alpha$ values, $\alpha=0.50, 0.505, 0.51, 0.52$, to see if the code is stable by plotting the velocity at the centerline ($y=0$) as a function of dimensionless time $\nu t/L^2$ up to $\nu t/L^2=2.0$.
+    \end{enumerate}
+\end{homework}
+
+pass
+
+
+
+\begin{homework}[label={H:4-2}]
+    Recall from the lecture notes, that, for the forward Euler scheme we have derived the following leading-order modified equation
+    \begin{equation}\label{E:4-2-1}
+        \partial_t u = g + \nu\partial_{yy} u + \frac{\nu\cdot\Delta y^2}{12}(1-6\alpha)\partial_{yyyy}^4 u + \order{\Delta t^2, \Delta t\cdot\Delta y^2, \Delta y^4}
+    \end{equation}
+    Now consider the backward Euler scheme:
+    \begin{equation}\label{E:4-2-2}
+        \frac{u_j^{n+1}-u_j^n}{\Delta t} = g + \nu\frac{u_{j-1}^{n+1}-2u_j^{n+1}+u_{j+1}^{n+1}}{\Delta y^2}, \quad
+        \text{for } j=2, 3, 4, \ldots, N-1, N.
+    \end{equation}
+
+    \begin{enumerate}[label=(\alph*)]
+        \item First, using Taylor expansions to convert both sides of Equation~\eqref{E:4-2-2} to a partial differential equation. Note that since most terms in the backward Euler scheme, Equation~\eqref{E:4-2-2}, are at time $t_{n+1}$, it is more convenient to use $t_{n+1}$ as the reference time when performing the Taylor expansions. Also note that you only need to keep the terms up to $\Delta t$ and $\Delta y^2$, any term higher than these can be ignored.
+        \item Next, derive the leading order modified equation for the backward Euler scheme, by converting high-order time derivatives to spatial derivatives. Since \emph{only} terms up to $\Delta t$ and $\Delta y^2$ are needed, your derivation should be no more than 10 lines.
+        \item With the above results, give an estimate of the ratio of the magnitude of the normalized errors between the backward Euler and the forward Euler.        
+    \end{enumerate}
+\end{homework}
+
+pass
+
+
+
+\begin{homework}[label={H:4-3}]
+    Take the Euler explicit scheme with downwind differencing, for solving the 1D advection equation in an unbounded domain with $a>0$,
+    \begin{equation}\label{E:4-3-1}
+        \frac{u_j^{n+1} - u_j^n}{\Delta t} + a\frac{u_{j+1}^n-u_j^n}{\Delta x} = 0, \quad
+        -\infty<x<\infty, \quad t\geq 0,
+    \end{equation}
+
+    \begin{enumerate}[label=(\alph*)]
+        \item First, perform the von Neumann analysis to show that the scheme is unconditionally unstable.
+        \item Derive the modified equation for this scheme to find the explicit expressions for the numerical viscosity and the leading-order dispersion term. Is the numerical viscosity positive or negative?
+    \end{enumerate}
+\end{homework}
+
+pass
