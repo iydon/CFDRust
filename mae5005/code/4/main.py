@@ -23,16 +23,12 @@ if __name__ == '__main__':
     alpha, nutL = 0.32, 2.0
     N, L, nu = 16, 1.0, 0.1
     nt, dt = calc(alpha, nutL, N, L, nu)
-    stdout, _ = fortran.communicate(f'{N}\n{nt}\n{L}\n{nu}\n{0.05}')
-    print(repr(f'{N}\n{nt}\n{L}\n{nu}\n{dt}'))
-    print(repr(stdout.decode()))
-    exit()
+    fortran.communicate(f'{N}\n{nt}\n{L}\n{nu}\n{0.05}')
     un, ua, um = map(np.loadtxt, ['numerical.dat', 'analytical.dat', 'modified.dat'])
     times = nu * (np.arange(nt)+1) * dt / L**2
     fig, ax = plt.subplots(1, figsize=(16, 9))
     ax.scatter(times, np.abs((um-ua)[:, N//2+1]), s=1, label=r'$|u_m-u|/u_0$')
     ax.scatter(times, np.abs((un-ua)[:, N//2+1]), s=1, label=r'$|u_N-u|/u_0$')
-    ax.set_title('Temperature profiles at the two center lines')
     ax.set_xlabel('Dimensionless Time (νt/L²)')
     ax.set_ylabel('Normalized Error')
     ax.grid()
