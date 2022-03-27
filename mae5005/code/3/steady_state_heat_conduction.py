@@ -2,11 +2,6 @@ root = __import__('pathlib').Path(__file__).parent.absolute()
 __import__('sys').path.insert(0, str(root.parents[1]))
 
 
-from cProfile import label
-import itertools as it
-import re
-import typing as t
-
 import matplotlib.pyplot as plt
 import numpy as np
 
