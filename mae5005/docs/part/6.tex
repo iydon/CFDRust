@@ -1,0 +1,89 @@
+\section{第六次作业}
+
+\begin{homework}[label={H:6-1}]
+    Consider integrating the following equation in time, for $u(t)$,
+    \begin{equation}\label{E:6-1-1}
+        \dv{u}{t} = F(u)
+    \end{equation}
+    using the idea of the third-order Runge-Kutta method, namely,
+    \begin{equation*}
+        \begin{aligned}
+            u^{(1)} &= u^n + \dd t F(u^n) \\
+            u^{(2)} &= u^n + \frac{\dd t}{2} \qty[\alpha F(u^n)+(1-\alpha)F(u^{(1)})] \\
+            u^{(3)} &= u^n + \dd t \qty[\beta F(u^n)+\gamma F(u^{(2)})+(1-\beta-\gamma)F(u^{(1)})]
+        \end{aligned}
+    \end{equation*}
+    where $F(u)$ is an arbitary function of $u$. Note in this case $u^{(1)}$ can be viewed as the estimate of $u$ at $t^{n+1}$, $u^{(2)}$ can be viewed as the estimate of $u$ at $t^{n+0.5}$.
+
+    \begin{enumerate}[label=(\alph*)]
+        \item Using Taylor expansions, derive all constraints that you need to ensure that the above method is third-order accurate, meaning the truncation error, relative to the ODE~\eqref{E:6-1-1}, is of the order $\order{\dd t^3}$. In particular, show that
+            \begin{equation*}
+                \begin{aligned}
+                    \gamma+2(1-\beta-\gamma) &= 1 \\
+                    \frac{\gamma}{8}+\frac{1-\beta-\gamma}{2} &= \frac{1}{6} \\
+                    \frac{\gamma}{2}(1-\alpha) &= \frac{1}{6}
+                \end{aligned}
+            \end{equation*}
+        \item Then solve the above linear system to show that $\alpha=1/2$, $\beta=1/6$, $\gamma=2/3$. This resulting scheme is well known as the third-order TVD Runge-Kutta scheme.
+    \end{enumerate}
+\end{homework}
+
+pass
+
+
+
+\begin{homework}[label={H:6-2}]
+    Consider the 1D unsteady advection problem
+    \begin{equation}\label{E:6-2-1}
+        \pdv{u}{t} + a\pdv{u}{x}=0,
+        \quad
+        \text{where $-2\leq x\leq 4$},
+    \end{equation}
+    with $a=1$ and the initial condition
+    \begin{equation}\label{E:6-2-2}
+        u(x, t=0) = \begin{cases}
+            2.0 & \text{if $x<0$} \\
+            0.0 & \text{if $x>0$}
+        \end{cases}
+    \end{equation}
+
+    In this case the analytical solution is known, at least for early times when the front has not reached the right boundary. You can assume a zero-gradient boundary condition at both ends of the domain. Now consider the following scheme provided in the lecture, based on the cell-wise linear reconstruction
+    \begin{equation}\label{E:6-2-3}
+        u^{n+1}_j = u^n_j - \frac{a\Delta t}{\Delta x}\qty(u^n_j-u^n_{j-1}) - \frac{a\Delta t}{2\Delta x}\qty(\Delta x-a\Delta t)\qty(\sigma^n_j-\sigma^n_{j-1})
+    \end{equation}
+    where $\sigma^n_j$ is a properly defined slope for cell $j$. Assume $\Delta x=0.1$ and $\Delta t=0.05$, and use 60 grid points located at $x_i=(i+0.5)\Delta x$, for $i=-20, -10, \ldots, -1, 0, 1, \ldots, 38, 39$.
+
+    \begin{enumerate}[label=(\alph*)]
+        \item Obtain the numerical solutions by hand at $t=0.05$ (only one time step) for three cases: the downwind slope (i.e., the Lax-Wendroff scheme), the van Leer limiter (form 2 in the lecture), and the SUPERBEE limiter. You may use these data to validate your codes in Part (b).
+        \item Write three Fortran Codes using, respectively, the downwind slope (i.e., the Lax-Wendroff scheme), the van Leer limiter (form 2 in the lecture), and the SUPERBEE  limiter. Plot all solutions (three numerical solutions plus the analytical solution) together at $t=0.05$ (one time step), $0.2$ (4 time steps), $1.0$ (20 time steps), and $2.0$ (40 time steps), respectively (one plot for each time). Hint: For easy coding, you can add virtual nodes on the two ends of the domain. For the Lax-Wendroff scheme, adding one virtual node at each end is sufficient, while for the other two, adding two virtual nodes at each end will be adequate.
+        \item Comment on the results from the above three treatments. Also plot and compare the total variation (TV) as a function of time for the three cases (plot all TV data on a single figure). The total variation is defined as
+            \begin{equation}\label{E:6-2-4}
+                TV = \sum_{\forall i}\abs{u_{i+1}-u_i}.
+            \end{equation}
+    \end{enumerate}
+\end{homework}
+
+pass
+
+
+
+\begin{homework}[label={H:6-3}]
+    Consider the local $P^2$ reconstruction $u(\zeta)=a+b\zeta+c\zeta^2$ of $u(x)$ in terms of the three cell-averaged values $\bar{u}_{j-1}$, $\bar{u}_j$, $\bar{u}_{j+1}$ using the cells $j-1$, $j$, $j+1$.
+
+    \begin{enumerate}[label=(\alph*)]
+        \item Using the local coordinate $\zeta=x-x_j$, determine $a$, $b$, $c$.
+        \item Compute the local values at the three node points $x_{j-1}$, $x_j$, $x_{j+1}$, in terms of $\bar{u}_{j-1}$, $\bar{u}_j$, $\bar{u}_{j+1}$.
+        \item Show the following specific local reconstruction relation
+            \begin{equation}\label{E:6-3-1}
+                u_{j+\frac{3}{2}} = \frac{1}{3}\bar{u}_{j-1} - \frac{7}{6}\bar{u}_j + \frac{11}{6}\bar{u}_{j+1}.
+            \end{equation}
+        \item As a comparison, show that the usual (Lagrangian) pointwise interpolation relation is instead
+            \begin{equation}\label{E:6-3-2}
+                u^L_{j+\frac{3}{2}} = \frac{3}{8}u_{j-1} - \frac{5}{4}u_j + \frac{15}{8}u_{j+1}.
+            \end{equation}
+    \end{enumerate}
+
+    Observations: Therefore, the reconstruction relation and interpolation relation are close [the coefficients in (2) are $0.333, −1.167, 1.833$; and coefficients in (3) are $0.375, −1.250, 1.875$] but are not the same. However, in both cases, the coefficients are summed to one (a basic requirement when applied to a constant function).
+\end{homework}
+
+pass
